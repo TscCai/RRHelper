@@ -1,13 +1,20 @@
 ol, ul, .tab, .panel{
     margin: 0;
     padding: 0;
+    
+}
+#content{
+    width: 960px;
+    padding:20px;
+    margin: 0px auto;
 }
 .tab-header > li{
     display: block;
     width:85px;
     text-align: center;
     float:left;
-    border-style:dashed;
+    border-style: dashed;
+    border-bottom-style: none;
     border-width: 1px;
     cursor: pointer;
 }
@@ -18,8 +25,38 @@ ol, ul, .tab, .panel{
 
 .pannel > div{
     clear:both;
+    padding:10px 5px;
+    border:1px solid;
     display: none;
+    width:960px;
 }
 .pannel > div.active{
     display: block;
+}
+
+.page.footer, .page.control{
+    clear: both;
+    padding: 5px 15px;
+}
+
+.page.main table {
+    width:50%; 
+    float: left;  
+}
+
+.page table th, .page table td{
+    height:40px;
+}
+.extra-tb{
+    display:none;
+}
+.extra-tb.active{
+    display: block;
+}
+
+.txt-sm{
+   width:50px;
+}
+.btn-sm{
+    width:100px;
 }

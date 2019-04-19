@@ -4,7 +4,7 @@
  * dependency: rrhelper-vector.js
  */
 
- 
+
 /* Calculate Z.
  * @zr: Zr
  * @zx: Zx
@@ -12,7 +12,7 @@
  * return: Z in complex form
  */
 RRHelper.calcZ = function (zr, zx, ratio) {
-    
+
     if (ratio != undefined && zx != 0) {
         zr = zx * ratio;
     }
@@ -22,4 +22,10 @@ RRHelper.calcZ = function (zr, zx, ratio) {
     var z = RRHelper.Vector.plus(new RRHelper.Vector(zr, 90 * (Math.sign(zr) - 1)), new RRHelper.Vector(zx, 90 * Math.sign(zx)));
 
     return z;
+}
+
+RRHelper.calcKz = function (kr, kx, ang) {
+    ang = RRHelper.parseRad(ang);
+    var kz = Math.sqrt(kr * kr * Math.cos(ang) * Math.cos(ang) + kx * kx * Math.sin(ang) * Math.sin(ang));
+    return kz;
 }

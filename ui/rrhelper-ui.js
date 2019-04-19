@@ -28,3 +28,18 @@ function init() {
     // tab and pannel
     tab_init("tab_mode");
 }
+
+function sel_z_onChange(sender, flag) {
+
+    var extra_tables = sender.parentNode.parentNode.parentNode.parentNode.parentNode.children;
+    for (var i = 1; i < extra_tables.length; i++) {
+        extra_tables[i].className = "extra-tb";
+    }
+    if (sender.value > 0) {
+        extra_tables[1].className = "extra-tb active";
+        $("txt_rxratio_" + flag).disabled = true;
+    }
+    if (sender.value > 1) {
+        $("txt_rxratio_" + flag).disabled = false;
+    }
+}
