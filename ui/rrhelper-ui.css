@@ -1,0 +1,25 @@
+ol, ul, .tab, .panel{
+    margin: 0;
+    padding: 0;
+}
+.tab-header > li{
+    display: block;
+    width:85px;
+    text-align: center;
+    float:left;
+    border-style:dashed;
+    border-width: 1px;
+    cursor: pointer;
+}
+
+.tab-header > li.active{
+    background-color: coral;
+}
+
+.pannel > div{
+    clear:both;
+    display: none;
+}
+.pannel > div.active{
+    display: block;
+}
