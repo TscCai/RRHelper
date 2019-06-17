@@ -33,7 +33,7 @@
                                     <td width="10%"><input id="txt_z1_s" class="txt-sm" /> Ω</td>
                                     <th width="8%">阻抗模式</th>
                                     <td width="30%">
-                                        <select onchange="sel_z_onChange(this,'s')">
+                                        <select id="z_mode_s" onchange="sel_z_onChange(this,'s')">
                                             <option value="0">标准</option>
                                             <option value="1">电阻+电抗</option>
                                             <option value="2">阻抗比</option>
@@ -92,7 +92,7 @@
                         </table>
                     </div>
                     <div class="page control">
-                        <button class="btn-sm">计算</button>
+                        <button class="btn-sm" onclick="btn_dis_single_onClick(this)">计算</button>
                     </div>
                     <div class="page footer">
                         <hr />

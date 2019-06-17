@@ -24,24 +24,24 @@ RRHelper.Line.doublePhaseDistance = function (i, z, ang, u_phs1, u_phs2) {
     var ue = 100 / Math.sqrt(3);
     var u_phs_sp = RRHelper.parseRad(0 - u_phs1 - u_phs2);
     var uu = 2 * i * z;
-    var result =uu; 
+    var result = uu;
     if (ang != undefined && u_phs1 != undefined && u_phs2 != undefined) {
         // for direction vector temp
         var u1, u2;
-        if (u_phs1 + u_phs2 == RRHelper.Line.PHS_A + RRHelper.Line.PHS_B){
+        if (u_phs1 + u_phs2 == RRHelper.Line.PHS_A + RRHelper.Line.PHS_B) {
             u1 = new RRHelper.Vector(1, RRHelper.Line.PHS_A);
             u2 = new RRHelper.Vector(1, RRHelper.Line.PHS_B);
         }
-        else if (u_phs1 + u_phs2 == RRHelper.Line.PHS_B + RRHelper.Line.PHS_C){
+        else if (u_phs1 + u_phs2 == RRHelper.Line.PHS_B + RRHelper.Line.PHS_C) {
             u1 = new RRHelper.Vector(1, RRHelper.Line.PHS_B);
             u2 = new RRHelper.Vector(1, RRHelper.Line.PHS_C);
         }
-        else if (u_phs1 + u_phs2 == RRHelper.Line.PHS_C + RRHelper.Line.PHS_A){
+        else if (u_phs1 + u_phs2 == RRHelper.Line.PHS_C + RRHelper.Line.PHS_A) {
             u1 = new RRHelper.Vector(1, RRHelper.Line.PHS_C);
             u2 = new RRHelper.Vector(1, RRHelper.Line.PHS_A);
         }
-        
-        
+
+
         result = new Object();
         result.ul = uu;
         var up = Math.sqrt(ue * ue / 4 + result.ul * result.ul / 4);

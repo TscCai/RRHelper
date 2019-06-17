@@ -43,3 +43,15 @@ function sel_z_onChange(sender, flag) {
         $("txt_rxratio_" + flag).disabled = false;
     }
 }
+
+function btn_dis_single_onClick(sender){
+    // 检查阻抗输入模式
+    var z_mode = document.getElementById("z_mode_s")
+    // 计算阻抗、补偿系数
+}
+
+// flag: s --> single
+//       d --> double
+function checkZMode(flag){
+
+}
