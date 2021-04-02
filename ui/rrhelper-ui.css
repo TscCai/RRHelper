@@ -23,14 +23,14 @@ ol, ul, .tab, .panel{
     background-color: coral;
 }
 
-.pannel > div{
+.panel > div{
     clear:both;
     padding:10px 5px;
     border:1px solid;
     display: none;
     width:960px;
 }
-.pannel > div.active{
+.panel > div.active{
     display: block;
 }
 
