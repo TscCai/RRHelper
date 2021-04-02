@@ -1,6 +1,14 @@
 // Global shortcut to get element or dom
-function $(id) {
-    return document.getElementById(id);
+function $(sel) {
+    if (sel.startsWith("#")){
+        return document.getElementById(sel.substring(1));
+    }
+    else if (sel.startsWith(".")){
+        return document.getElementsByClassName(sel.substring(1));
+    }
+    else{
+        return document.getElementsByTagName(sel);
+    }
 }
 
 var RRHelper = new Object();
@@ -61,5 +69,21 @@ RRHelper.random = function (start, end, decimal) {
 }
 
 RRHelper.randomArray = function (start, end) {
-    throw "unimplement method."
+    var arr = new Array(end - start + 1);
+    var val = start;
+    for (var i = 0; i < arr.length; i++){
+        arr[i] = val++;
+    }
+
+
+    for (var i = 0; i < arr.length; i++){
+        var idx_tail = arr.length - i - 1;
+        for (var j = 0; j < idx_tail; j++){
+            var chs = this.random(0, idx_tail);
+            var tmp = arr[idx_tail];
+            arr[idx_tail] = arr[chs];
+            arr[chs] = tmp;
+        }
+    }
+    return arr;
 }

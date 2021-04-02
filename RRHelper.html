@@ -6,8 +6,9 @@
     <script src="rrhelper-vector.js"></script>
     <script src="rrhelper-util.js"></script>
     <script src="rrhelper-line.js"></script>
-
+    <!-- <script src="ui/jquery.min.js"></script> -->
     <script src="ui/rrhelper-ui.js"></script>
+    <meta charset="utf-8"/>
     <title>RRHelper demo - Line Protection</title>
 </head>
 
@@ -19,74 +20,161 @@
                 <li class="active">接地距离</li>
                 <li>相间距离</li>
             </ul>
+            
             <div class="pannel">
                 <div>
-                    <h3>Pannel Short Calc</h3>
+                    <div class="page main">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th width="5%"> </th><td width="10%">幅值</td><td width="10%">相位</td>
+                                </tr>                        
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th width="5%">U<sub>a</sub></th>
+                                    <td width="10%"><input type="text" id="txt_ua" value="57.74"/>V</td>
+                                    <td width="10%"><input type="text" id="txt_ua_arg" value="0"/>°</td>
+                                </tr>
+                                <tr>
+                                    <th width="5%">U<sub>b</sub></th>
+                                    <td width="10%"><input type="text" id="txt_ub" value="57.74"/>V</td>
+                                    <td width="10%"><input type="text" id="txt_ub_arg" value="-120"/>°</td>
+                                </tr>
+                                <tr>
+                                    <th width="5%">U<sub>c</sub></th>
+                                    <td width="10%"><input type="text" id="txt_uc" value="57.74"/>V</td>
+                                    <td width="10%"><input type="text" id="txt_uc_arg" value="120"/>°</td>
+                                </tr>
+                                <tr>
+                                    <th width="5%">I<sub>a</sub></th>
+                                    <td width="10%"><input type="text" id="txt_ia" value="0"/>A</td>
+                                    <td width="10%"><input type="text" id="txt_ia_arg" value="0"/>°</td>
+                                </tr>
+                                <tr>
+                                    <th width="5%">I<sub>b</sub></th>
+                                    <td width="10%"><input type="text" id="txt_ib" value="0"/>A</td>
+                                    <td width="10%"><input type="text" id="txt_ib_arg" value="-120"/>°</td>
+                                </tr>
+                                <tr>
+                                    <th width="5%">I<sub>c</sub></th>
+                                    <td width="10%"><input type="text" id="txt_ic" value="0"/>A</td>
+                                    <td width="10%"><input type="text" id="txt_ic_arg" value="120"/>°</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>故障类型</td>
+                                    <td width="45%">
+                                        <select id="sel_sc_phs" class="droplist sm" onchange="sel_sc_phs_Changed(this)">
+                                            <option value="1">A相接地</option>
+                                            <option value="2">B相接地</option>
+                                            <option value="3">C相接地</option>
+                                            <option value="4">BC短路</option>
+                                            <option value="5">CA短路</option>
+                                            <option value="6">AB短路</option>
+                                            <option value="0">三相短路</option>
+                                        </select>
+                                    </td>
+                                    <td>阻抗定值</td><td><input id="txt_z_setting"/>Ω</td>
+                                </tr>
+                                <tr>
+                                    <td>阻抗系数</td><td><input id="txt_z_factor"/></td>
+                                    <td>故障电流</td><td><input id="txt_ki"/>A</td>
+                                </tr>
+                                <tr>
+                                    <td>正序阻抗角</td><td><input id="txt_z1_arg"/>°</td>
+                                    <td> </td><td> </td>
+                                </tr>
+                                <tr><td colspan=4><hr/></td></tr>
+                                <tr>
+                                    <td>零序补偿系数</td><td><input id="txt_kz1"/></td>
+                                    <td> </td><td> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="page control">
+                        <button class="btn-sm" onclick="">计算</button>
+                    </div>
+                    <div class="page footer">
+                        <hr />
+                        <h3>result</h3>
+                    </div>       
                 </div>
+                
                 <!-- 接地距离 -->
                 <div class="active">
                     <div class="page main">
                         <table>
                             <tbody>
                                 <tr>
-                                    <th width="5%">Z1=</th>
-                                    <td width="10%"><input id="txt_z1_s" class="txt-sm" /> Ω</td>
+                                    <th width="5%">Z<sub>1</sub>=</th>
+                                    <td width="10%"><input id="txt_z1_s" /> Ω</td>
                                     <th width="8%">阻抗模式</th>
                                     <td width="30%">
-                                        <select id="z_mode_s" onchange="sel_z_onChange(this,'s')">
-                                            <option value="0">标准</option>
-                                            <option value="1">电阻+电抗</option>
-                                            <option value="2">阻抗比</option>
+                                        <select id="z_mode_s" onchange="sel_z_Changed(this,'s')">
+                                            <option value="std">标准</option>
+                                            <option value="r+x">电阻+电抗</option>
+                                            <option value="ratio">阻抗比</option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th width="5%">Z2=</th>
-                                    <td width="10%"><input id="txt_z2_s" class="txt-sm" /> Ω</td>
+                                    <th width="5%">Z<sub>2</sub>=</th>
+                                    <td width="10%"><input id="txt_z2_s" /> Ω</td>
                                     <th width="5%">t2=</th>
-                                    <td width="30%"><input id="txt_t2_s" class="txt-sm" /> ms</td>
+                                    <td width="30%"><input id="txt_t2_s" /> s</td>
                                 </tr>
                                 <tr>
-                                    <th width="5%">Z3=</th>
-                                    <td width="10%"><input id="txt_z3_s" class="txt-sm" /> Ω</td>
+                                    <th width="5%">Z<sub>3</sub>=</th>
+                                    <td width="10%"><input id="txt_z3_s" /> Ω</td>
                                     <th width="5%">t3=</th>
-                                    <td width="30%"><input id="txt_t3_s" class="txt-sm" /> ms</td>
+                                    <td width="30%"><input id="txt_t3_s" /> s</td>
                                 </tr>
                                 <tr>
                                     <th width="5%">Kz=</th>
-                                    <td width="10%"><input id="txt_kz" class="txt-sm" /></td>
+                                    <td width="10%"><input id="txt_kz" /></td>
                                 </tr>
                                 <tr>
                                     <th width="5%">Kr=</th>
-                                    <td width="10%"><input id="txt_kr" class="txt-sm" /></td>
+                                    <td width="10%"><input id="txt_kr" /></td>
                                     <th width="5%">Kx=</th>
-                                    <td width="30%"><input id="txt_kx" class="txt-sm" /></td>
+                                    <td width="30%"><input id="txt_kx" /></td>
+                                </tr>
+                                <tr>
+                                    <th width="5%">I<sub>12</sub>=</th>
+                                    <td width="10%"><input id="txt_i12_s" value="5" /> A</td>
+                                    <th width="5%">I<sub>3</sub>=</th>
+                                    <td width="30%"><input id="txt_i3_s" value="2" /> A</td>
                                 </tr>
                             </tbody>
                         </table>
                         <table class="extra-tb">
                             <tbody>
                                 <tr>
-                                    <th width="5%">R1=</th>
-                                    <td width="10%"><input id="txt_r1_s" class="txt-sm" /></td>
-                                    <th width="5%">X1=</th>
-                                    <td width="30%"><input id="txt_x1_s" class="txt-sm" /></td>
+                                    <th width="5%">R<sub>1</sub>=</th>
+                                    <td width="10%"><input id="txt_r1_s" /></td>
+                                    <th width="5%">X<sub>1</sub>=</th>
+                                    <td width="30%"><input id="txt_x1_s" /></td>
                                 </tr>
                                 <tr>
-                                    <th width="5%">R2=</th>
-                                    <td width="10%"><input id="txt_r2_s" class="txt-sm" /></td>
-                                    <th width="5%">X2=</th>
-                                    <td width="30%"><input id="txt_x2_s" class="txt-sm" /></td>
+                                    <th width="5%">R<sub>2</sub>=</th>
+                                    <td width="10%"><input id="txt_r2_s" /></td>
+                                    <th width="5%">X<sub>2</sub>=</th>
+                                    <td width="30%"><input id="txt_x2_s" /></td>
                                 </tr>
                                 <tr>
-                                    <th width="5%">R3=</th>
-                                    <td width="10%"><input id="txt_r3_s" class="txt-sm" /></td>
-                                    <th width="5%">X3=</th>
-                                    <td width="30%"><input id="txt_x3_s" class="txt-sm" /></td>
+                                    <th width="5%">R<sub>3</sub>=</th>
+                                    <td width="10%"><input id="txt_r3_s" /></td>
+                                    <th width="5%">X<sub>3</sub>=</th>
+                                    <td width="30%"><input id="txt_x3_s" /></td>
                                 </tr>
                                 <tr>
                                     <th width="5%">R/X=</th>
-                                    <td width="10%"><input id="txt_rxratio_s" class="txt-sm" /></td>
+                                    <td width="10%"><input id="txt_rxratio_s" /></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -107,57 +195,66 @@
                         <table>
                             <tbody>
                                 <tr>
-                                    <th width="5%">Z1=</th>
-                                    <td width="10%"><input id="txt_z1_d" class="txt-sm" /> Ω</td>
+                                    <th width="5%">Z<sub>1</sub>=</th>
+                                    <td width="10%"><input id="txt_z1_d" /> Ω</td>
                                     <th width="8%">阻抗模式</th>
                                     <td width="30%">
-                                        <select onchange="sel_z_onChange(this,'d')">
-                                            <option value="0">标准</option>
-                                            <option value="1">电阻+电抗</option>
-                                            <option value="2">阻抗比</option>
+                                        <select id="z_mode_d" onchange="sel_z_Changed(this,'d')">
+                                            <option value="std">标准</option>
+                                            <option value="r+x">电阻+电抗</option>
+                                            <option value="ratio">阻抗比</option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th width="5%">Z2=</th>
-                                    <td width="10%"><input id="txt_z2_d" class="txt-sm" /> Ω</td>
-                                    <th width="5%">t2=</th>
-                                    <td width="30%"><input id="txt_t2_d" class="txt-sm" /> ms</td>
+                                    <th width="5%">Z<sub>2</sub>=</th>
+                                    <td width="10%"><input id="txt_z2_d" /> Ω</td>
+                                    <th width="5%">t<sub>2</sub>=</th>
+                                    <td width="30%"><input id="txt_t2_d" /> s</td>
                                 </tr>
                                 <tr>
-                                    <th width="5%">Z3=</th>
-                                    <td width="10%"><input id="txt_z3_d" class="txt-sm" /> Ω</td>
-                                    <th width="5%">t3=</th>
-                                    <td width="30%"><input id="txt_t3_d" class="txt-sm" /> ms</td>
+                                    <th width="5%">Z<sub>3</sub>=</th>
+                                    <td width="10%"><input id="txt_z3_d" /> Ω</td>
+                                    <th width="5%">t<sub>3</sub>=</th>
+                                    <td width="30%"><input id="txt_t3_d" /> s</td>
+                                </tr>
+                                <tr>
+                                    <th width="5%">I<sub>12</sub>=</th>
+                                    <td width="10%"><input id="txt_i12_d" value="5"/> A</td>
+                                    <th width="5%">I<sub>3</sub>=</th>
+                                    <td width="30%"><input id="txt_i3_d" value="2"/> A</td>
                                 </tr>
                             </tbody>
                         </table>
                         <table class="extra-tb">
                             <tbody>
                                 <tr>
-                                    <th width="5%">R1=</th>
-                                    <td width="10%"><input id="txt_r1_d" class="txt-sm" /></td>
-                                    <th width="5%">X1=</th>
-                                    <td width="30%"><input id="txt_x1_d" class="txt-sm" /></td>
+                                    <th width="5%">R<sub>1</sub>=</th>
+                                    <td width="10%"><input id="txt_r1_d" /></td>
+                                    <th width="5%">X<sub>1</sub>=</th>
+                                    <td width="30%"><input id="txt_x1_d" /></td>
                                 </tr>
                                 <tr>
-                                    <th width="5%">R2=</th>
-                                    <td width="10%"><input id="txt_r2_d" class="txt-sm" /></td>
-                                    <th width="5%">X2=</th>
-                                    <td width="30%"><input id="txt_x2_d" class="txt-sm" /></td>
+                                    <th width="5%">R<sub>2</sub>=</th>
+                                    <td width="10%"><input id="txt_r2_d" /></td>
+                                    <th width="5%">X<sub>2</sub>=</th>
+                                    <td width="30%"><input id="txt_x2_d" /></td>
                                 </tr>
                                 <tr>
-                                    <th width="5%">R3=</th>
-                                    <td width="10%"><input id="txt_r3_d" class="txt-sm" /></td>
-                                    <th width="5%">X3=</th>
-                                    <td width="30%"><input id="txt_x3_d" class="txt-sm" /></td>
+                                    <th width="5%">R<sub>3</sub>=</th>
+                                    <td width="10%"><input id="txt_r3_d" /></td>
+                                    <th width="5%">X<sub>3</sub>=</th>
+                                    <td width="30%"><input id="txt_x3_d" /></td>
                                 </tr>
                                 <tr>
                                     <th width="5%">R/X=</th>
-                                    <td width="10%"><input id="txt_rxratio_d" class="txt-sm" /></td>
+                                    <td width="10%"><input id="txt_rxratio_d" /></td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="page control">
+                        <button class="btn-sm" onclick="btn_dis_double_onClick(this)">计算</button>
                     </div>
                     <div class="page footer">
                         <hr />

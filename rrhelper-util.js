@@ -29,3 +29,8 @@ RRHelper.calcKz = function (kr, kx, ang) {
     var kz = Math.sqrt(kr * kr * Math.cos(ang) * Math.cos(ang) + kx * kx * Math.sin(ang) * Math.sin(ang));
     return kz;
 }
+
+RRHelper.calcX = function(ang1, z){
+    var x = (Math.sin(ang1) + Math.cos(ang1)/8 )* z;
+    return x;
+}

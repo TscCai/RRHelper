@@ -34,18 +34,39 @@ ol, ul, .tab, .panel{
     display: block;
 }
 
-.page.footer, .page.control{
+.page.control{
     clear: both;
     padding: 5px 15px;
+}
+.page.main{
+    height: auto;
 }
 
 .page.main table {
     width:50%; 
     float: left;  
 }
+.page.footer {
+    clear: both;
+    padding: 5px 15px;
+    height: 300px;
+}
+
+.page.footer table {
+    width: 80%;
+    float: left;
+    text-align: center;
+    border-collapse: collapse;
+}
+.page.footer td,.page.footer th  {
+    border-style: solid;
+    border-width: 1px;
+
+}
 
 .page table th, .page table td{
     height:40px;
+    
 }
 .extra-tb{
     display:none;
@@ -54,9 +75,17 @@ ol, ul, .tab, .panel{
     display: block;
 }
 
-.txt-sm{
-   width:50px;
+table input[type=text], table input:not([type]){
+    width:50px;
 }
+
 .btn-sm{
     width:100px;
+}
+
+table select{
+    height: 1.5rem;
+}
+.droplist.sm{
+    width: 55%;
 }

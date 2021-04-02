@@ -4,12 +4,12 @@
  * dependency: rrhelper-base.js
  */
 
-RRHelper.Vector = function (a, a_deg) {
+RRHelper.Vector = function (mod, a_deg) {
     // overload:(a_cplx)
-    this.len = 0; this.ang = 0;
+    this.mod = 0; this.arg = 0;
     if (a_deg != undefined) {
-        this.len = a;
-        this.ang = RRHelper.parseRad(a_deg);
+        this.mod = mod;
+        this.arg = a_deg;
     }
     else {
         // a_cplx: 4+3j
@@ -17,32 +17,52 @@ RRHelper.Vector = function (a, a_deg) {
 };
 
 RRHelper.Vector.plus = function (va, vb) {
-    var ja = va.len * Math.sin(va.ang);
-    var ra = va.len * Math.cos(va.ang);
+    var ja = va.mod * Math.sin(RRHelper.parseRad(va.arg));
+    var ra = va.mod * Math.cos(RRHelper.parseRad(va.arg));
 
-    var jb = vb.len * Math.sin(vb.ang);
-    var rb = vb.len * Math.cos(vb.ang);
+    var jb = vb.mod * Math.sin(RRHelper.parseRad(vb.arg));
+    var rb = vb.mod * Math.cos(RRHelper.parseRad(vb.arg));
 
     var j = ja + jb;
     var r = ra + rb;
 
-    var len = Math.sqrt(r * r + j * j);
-    var ang;
+    var mod = Math.sqrt(r * r + j * j);
+    var arg;
     if (r > 0) {
-        ang = Math.atan(j / r) / Math.PI * 180; // r>0
+        arg = Math.atan(j / r) / Math.PI * 180; // r>0
     }
     else if (r < 0) {
-        ang = Math.atan(j / r) / Math.PI * 180 + 180;
+        arg = Math.atan(j / r) / Math.PI * 180 + 180;
     }
     else {
-        ang = Math.asin(j) / Math.PI * 180
+        // r = 0, vector is on complex axis
+        // j < 0, arg = -90,
+        // j > 0, arg= 90
+        if (j<0) {arg = -90;}
+        else if(j>0){arg = 90;}
     }
+    
+    // value decroation
+    if (Math.abs(mod)<1e-10){
+        mod = 0;
+    }
+    if (Math.abs(arg)<1e-10){
+        arg = 0;
+    }
+    if (Math.abs(Math.floor(arg) - arg)< 1e-8){
+        arg = Math.floor(arg);
+    }
+    if (Math.abs(Math.ceil(arg) - arg)< 1e-8){
+        arg = Math.ceil(arg);
+    }
+    // value decoration finish
 
-    return new RRHelper.Vector(len, ang);
+    return new RRHelper.Vector(mod, arg);
 };
 
 // 矢量减法，数学模式
 RRHelper.Vector.minus = function (va, vb) {
-    vb.ang -= Math.PI;
-    return RRHelper.Vector.plus(va, vb);
+    var b = new RRHelper.Vector(vb.mod,vb.arg-180);
+    
+    return RRHelper.Vector.plus(va, b);
 };
