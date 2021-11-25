@@ -1,0 +1,48 @@
+<html>
+
+<head>
+    <script src="rrhelper-base.js"></script>
+    <script src="rrhelper-vector.js"></script>
+    <script src="rrhelper-paint.js"></script>
+</head>
+
+<body>
+    <canvas id="cvs" width="640" height="640">
+
+    </canvas>
+</body>
+
+<script>
+    var cvs = $("#cvs");
+    var ctx = cvs.getContext("2d");
+    var center = [320, 320];
+
+    // easy way
+    ctx.strokeStyle = "#FF0000";
+    ctx.lineToEx(center[0], center[1], 230, 45, RRHelper.LineToArgs.Polar|RRHelper.LineToArgs.EndArrow);
+    ctx.stroke();
+
+    ctx.strokeStyle = "#00FF00";
+    ctx.lineToEx(center[0], center[1], 230, 135, RRHelper.LineToArgs.Polar|RRHelper.LineToArgs.EndArrow);
+    ctx.stroke();
+
+    ctx.strokeStyle = "#0000FF";
+    ctx.lineToEx(center[0], center[1], 230, -135, RRHelper.LineToArgs.Polar|RRHelper.LineToArgs.EndArrow);
+    ctx.stroke();
+
+
+    ctx.strokeStyle = "#0000FF";
+    ctx.lineToEx(center[0], center[1], 230, 0, RRHelper.LineToArgs.Polar|RRHelper.LineToArgs.EndArrow);
+    ctx.stroke();
+
+    // more customized way
+    /* 
+    var endPoint = ctx.lineToEx(center[0], center[1], 230, 90, RRHelper.LineToArgs.Polar|RRHelper.LineToArgs.EndArrow);
+    ctx.lineArrow(endPoint.x, endPoint.y, endPoint.k,30,20);
+    ctx.lineArrow(center[0], center[1], p.k * -1 ,30,20);
+    ctx.stroke();
+    */
+
+</script>
+
+</html>

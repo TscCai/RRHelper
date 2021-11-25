@@ -1,4 +1,5 @@
 // Global shortcut to get element or dom
+
 function $(sel) {
     if (sel.startsWith("#")){
         return document.getElementById(sel.substring(1));

@@ -1,3 +1,6 @@
 {
-    "view-in-browser.customBrowser": "chrome"
+    "view-in-browser.customBrowser": "chrome",
+    "cSpell.words": [
+        "rrhelper"
+    ]
 }
