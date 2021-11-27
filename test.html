@@ -17,27 +17,47 @@
     var ctx = cvs.getContext("2d");
     var center = [320, 320];
 
-    // easy way
+    var a = new RRHelper.Vector(1, 180);
+    var b = new RRHelper.Vector(1, 0);
+
+    var c = new RRHelper.Vector.minus(a, b);
+
+
+    
+    var len = [a.mod, b.mod, c.mod];
+    len = RRHelper.lengthUniformize(len, 230);
+    a.mod = len[0];
+    b.mod = len[1];
+    c.mod = len[2];
+
+    
     ctx.strokeStyle = "#FF0000";
-    ctx.lineToEx(center[0], center[1], 230, 45, RRHelper.LineToArgs.Polar|RRHelper.LineToArgs.EndArrow);
-    ctx.stroke();
+    ctx.lineToEx(center[0], center[1], a.mod, a.ang, RRHelper.LineToArgs.Polar | RRHelper.LineToArgs.EndArrow);
 
     ctx.strokeStyle = "#00FF00";
-    ctx.lineToEx(center[0], center[1], 230, 135, RRHelper.LineToArgs.Polar|RRHelper.LineToArgs.EndArrow);
-    ctx.stroke();
+    ctx.lineToEx(center[0], center[1], b.mod, b.ang, RRHelper.LineToArgs.Polar | RRHelper.LineToArgs.EndArrow);
 
     ctx.strokeStyle = "#0000FF";
-    ctx.lineToEx(center[0], center[1], 230, -135, RRHelper.LineToArgs.Polar|RRHelper.LineToArgs.EndArrow);
-    ctx.stroke();
+    ctx.lineToEx(center[0], center[1], c.mod, c.ang, RRHelper.LineToArgs.Polar | RRHelper.LineToArgs.EndArrow);
+   
 
 
-    ctx.strokeStyle = "#0000FF";
-    ctx.lineToEx(center[0], center[1], 230, 0, RRHelper.LineToArgs.Polar|RRHelper.LineToArgs.EndArrow);
-    ctx.stroke();
+
+    // easy way
+    // var i = 0;
+    // window.setInterval(() => {
+    //     ctx.clearRect(0, 0, 640, 640);
+    //     ctx.strokeStyle = "#FF0000";
+    //     ctx.lineToEx(center[0], center[1], 230, i, RRHelper.LineToArgs.Polar | RRHelper.LineToArgs.EndArrow);
+    //     ctx.stroke();
+
+    //     i -= 0.3;
+    //     // i = Math.abs(i) % 360 > 0 ? i % 360 : i;
+    // }, 16);
 
     // more customized way
-    /* 
-    var endPoint = ctx.lineToEx(center[0], center[1], 230, 90, RRHelper.LineToArgs.Polar|RRHelper.LineToArgs.EndArrow);
+    /*
+    var endPoint = ctx.lineToEx(center[0], center[1], 230, 90, RRHelper.LineToArgs.Polar);
     ctx.lineArrow(endPoint.x, endPoint.y, endPoint.k,30,20);
     ctx.lineArrow(center[0], center[1], p.k * -1 ,30,20);
     ctx.stroke();

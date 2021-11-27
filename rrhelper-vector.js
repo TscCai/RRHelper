@@ -4,12 +4,12 @@
  * dependency: rrhelper-base.js
  */
 
-RRHelper.Vector = function (mod, a_deg) {
+RRHelper.Vector = function (mod, ang) {
     // overload:(a_cplx)
-    this.mod = 0; this.arg = 0;
-    if (a_deg != undefined) {
+    this.mod = 0; this.ang = 0;
+    if (ang != undefined) {
         this.mod = mod;
-        this.arg = a_deg;
+        this.ang = ang;
     }
     else {
         // a_cplx: 4+3j
@@ -17,52 +17,52 @@ RRHelper.Vector = function (mod, a_deg) {
 };
 
 RRHelper.Vector.plus = function (va, vb) {
-    var ja = va.mod * Math.sin(RRHelper.parseRad(va.arg));
-    var ra = va.mod * Math.cos(RRHelper.parseRad(va.arg));
+    var ja = va.mod * Math.sin(RRHelper.parseRad(va.ang));
+    var ra = va.mod * Math.cos(RRHelper.parseRad(va.ang));
 
-    var jb = vb.mod * Math.sin(RRHelper.parseRad(vb.arg));
-    var rb = vb.mod * Math.cos(RRHelper.parseRad(vb.arg));
+    var jb = vb.mod * Math.sin(RRHelper.parseRad(vb.ang));
+    var rb = vb.mod * Math.cos(RRHelper.parseRad(vb.ang));
 
     var j = ja + jb;
     var r = ra + rb;
 
     var mod = Math.sqrt(r * r + j * j);
-    var arg;
+    var ang;
     if (r > 0) {
-        arg = Math.atan(j / r) / Math.PI * 180; // r>0
+        ang = Math.atan(j / r) / Math.PI * 180; // r>0
     }
     else if (r < 0) {
-        arg = Math.atan(j / r) / Math.PI * 180 + 180;
+        ang = Math.atan(j / r) / Math.PI * 180 + 180;
     }
     else {
         // r = 0, vector is on complex axis
         // j < 0, arg = -90,
         // j > 0, arg= 90
-        if (j<0) {arg = -90;}
+        if (j<0) {ang = -90;}
         else if(j>0){arg = 90;}
     }
     
     // value decroation
-    if (Math.abs(mod)<1e-10){
+    if (Math.abs(mod)<1e-8){
         mod = 0;
     }
-    if (Math.abs(arg)<1e-10){
-        arg = 0;
+    if (Math.abs(ang)<1e-8){
+        ang = 0;
     }
-    if (Math.abs(Math.floor(arg) - arg)< 1e-8){
-        arg = Math.floor(arg);
+    if (Math.abs(Math.floor(ang) - ang)< 1e-8){
+        ang = Math.floor(ang);
     }
-    if (Math.abs(Math.ceil(arg) - arg)< 1e-8){
-        arg = Math.ceil(arg);
+    if (Math.abs(Math.ceil(ang) - ang)< 1e-8){
+        ang = Math.ceil(ang);
     }
     // value decoration finish
 
-    return new RRHelper.Vector(mod, arg);
+    return new RRHelper.Vector(mod, ang);
 };
 
 // 矢量减法，数学模式
 RRHelper.Vector.minus = function (va, vb) {
-    var b = new RRHelper.Vector(vb.mod,vb.arg-180);
+    var b = new RRHelper.Vector(vb.mod,vb.ang-180);
     
     return RRHelper.Vector.plus(va, b);
 };
