@@ -1,8 +1,9 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="ui/bootstrap.css" />
     <link rel="stylesheet" href="ui/frozen.css" />
-    <link rel="stylesheet" href="ui/demo.css" />
+    
     <script src="rrhelper-base.js"></script>
     <script src="rrhelper-vector.js"></script>
     <script src="rrhelper-paint.js"></script>
@@ -11,17 +12,45 @@
 <body>
 
     <header class="ui-header ui-header-positive ui-border-b">
-        <h1>计算器</h1>
+        <h1>向量计算器</h1>
     </header>
-    <section class="ui-container ui-center">
-        <canvas id="cvs" width="640" height="640" style="margin:0 auto"></canvas>
-        
+    <section class="ui-container">
+        <ul class="ui-row">
+            <li class="ui-col ui-col-25">
+                <div class="ui-form-item ui-form-item-link ui-border-b">
+                    <label>
+                        幅值
+                    </label>
+                    <input type="text" placeholder="">
+                </div>
+            </li>
+            <li class="ui-col ui-col-25">
+                <div class="ui-form-item ui-form-item-link ui-border-b">
+                    <label>
+                        相位
+                    </label>
+                    <input type="text" placeholder="">
+                </div>
+            </li>
+            <li class="ui-col ui-col-25">
+                <div class="ui-form-item ui-border-b">
+                    <button class="ui-btn-lg-nowhole ui-btn-primary">添加</button>
+                </div>
+                
+            </li>
+
+            <li  class="ui-col ui-col-25">
+                <div class="ui-form-item ui-border-b">
+                    <button class="ui-btn-lg-nowhole ui-btn-primary">移除最后一个</button>
+                </div>
+            </li>    
+        </ul>
     </section>
-    
+    <section class="ui-container ui-center">
 
+        <canvas id="cvs" width="640" height="640" style="margin:0 auto"></canvas>
+    </section>
 
-
-    
 </body>
 
 <script>
