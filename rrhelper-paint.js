@@ -6,20 +6,7 @@
  * @date 2021-11-26
  */
 
-RRHelper.lengthUniformize = function (arr, maxLen) {
-    if (maxLen == 0) {
-        throw exception("Illegal argument, maxLen can't be 0.");
-    }
-    
-    let tmp = [...arr];
-    tmp.sort((a, b) => b - a);
-    let maxValue = tmp[0];
-    let factor = maxLen / maxValue;
-    for (let i = 0; i < arr.length; i++) {
-        arr[i] *= factor;
-    }
-    return arr;
-}
+
 
 RRHelper.LineToArgs = {
     "Polar": 1,

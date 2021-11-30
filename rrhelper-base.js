@@ -14,7 +14,7 @@
  * @param {sting} sel - Selector of the DOM. It can receive id (add "#" as prefix ), className (add "." as prefix) and tagName (without prefix)
  * @returns {Element} The DOM(s) that selected.
  */
-function $(sel) {
+var $= function(sel) {
     if (sel.startsWith("#")) {
         return document.getElementById(sel.substring(1));
     }
@@ -25,8 +25,8 @@ function $(sel) {
         return document.getElementsByTagName(sel);
     }
 }
+var RRHelper = new Object();
 
-class RRHelper {
 
     /**
      * @desc The RRHelper library object. (aka namespace)
@@ -40,7 +40,7 @@ class RRHelper {
      * @param {string} id id of the element, should add "#" at the beginning.
      * @returns {number} value of the <input/>, return 0 if empty
      */
-    static getFloat = function (id) {
+    RRHelper.getFloat = function (id) {
         var txt = $(id).value;
         var val = parseFloat(txt == "" ? 0 : txt);
         return val;
@@ -53,7 +53,7 @@ class RRHelper {
      * @param {string} id id of the element, should add "#" at the beginning.
      * @returns {number}  value of the <input/>, return 0 if empty
      */
-    static getInt = function (id) {
+    RRHelper.getInt = function (id) {
         var txt = $(id).value;
         var val = parseInt(txt == "" ? 0 : txt);
         return val;
@@ -63,7 +63,7 @@ class RRHelper {
      * @deg: degree of the angle
      * return: the radian of the angle
      */
-    static parseRad = function (deg) {
+    RRHelper.parseRad = function (deg) {
         return deg / 180 * Math.PI;
     }
 
@@ -71,7 +71,7 @@ class RRHelper {
      * @rad: radian of the angle
      * return: the degree of the angle
      */
-    static parseDeg = function (rad) {
+    RRHelper.parseDeg = function (rad) {
         return rad / Math.PI * 180;
     }
 
@@ -83,7 +83,7 @@ class RRHelper {
      * @decimal: decimal digits count
      * return: the degree of the angle, return intger if @decimal is undefined or 0
      */
-    static random = function (start, end, decimal) {
+    RRHelper.random = function (start, end, decimal) {
         // deal with undefined argument
         decimal = decimal == undefined ? 0 : decimal;
 
@@ -94,7 +94,7 @@ class RRHelper {
         return result;
     }
 
-    static randomArray = function (start, end) {
+    RRHelper.randomArray = function (start, end) {
         var arr = new Array(end - start + 1);
         var val = start;
         for (var i = 0; i < arr.length; i++) {
@@ -115,4 +115,3 @@ class RRHelper {
     }
 
 
-}

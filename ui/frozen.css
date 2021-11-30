@@ -1279,10 +1279,10 @@ h6,
 .ui-btn-lg-nowhole {
     display: block;
     width: 220px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 17px;
-    border-radius: 3px;
+    height: 64px;
+    line-height: 64px;
+    font-size: 32px;
+    border-radius: 15px;
     margin: auto
 }
 
@@ -1725,9 +1725,9 @@ h6,
 
 .ui-form-item {
     position: relative;
-    font-size: 18px;
-    height: 46px;
-    line-height: 46px;
+    font-size: 48px;
+    height: 64px;
+    line-height: 64px;
     padding-right: 12px;
     padding-left: 12px;
     display: -webkit-box;

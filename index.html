@@ -1,0 +1,115 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="ui/bootstrap.css" />
+    <link rel="stylesheet" href="ui/frozen.css" />
+
+    <script src="rrhelper-base.js"></script>
+    <script src="rrhelper-vector.js"></script>
+    <script src="rrhelper-paint.js"></script>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+
+    <header class="ui-header ui-header-positive ui-border-b">
+        <h1>向量计算器</h1>
+    </header>
+    <section class="ui-container">
+        <ul class="ui-row">
+            <li class="ui-col ui-col-50">
+                <div class="ui-form-item ui-form-item-link ui-border-b">
+                    <label>
+                        幅值
+                    </label>
+                    <input id="txt_mod" type="text" placeholder="">
+                </div>
+            </li>
+            <li class="ui-col ui-col-50">
+                <div class="ui-form-item ui-form-item-link ui-border-b">
+                    <label>
+                        相位
+                    </label>
+                    <input id="txt_phs" type="text" placeholder="">
+                </div>
+            </li>
+            <li class="ui-col ui-col-50">
+                <div class="ui-form-item ui-border-b">
+                    <button class="ui-btn-lg-nowhole ui-btn-primary" onclick="addLine()">添加</button>
+                </div>
+
+            </li>
+
+            <li class="ui-col ui-col-50">
+                <div class="ui-form-item ui-border-b">
+                    <button class="ui-btn-lg-nowhole ui-btn-primary" onclick="removeLast()">移除最后一个</button>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <section class="ui-container ui-center">
+
+        <canvas id="cvs" width="640" height="640"></canvas>
+    </section>
+
+</body>
+
+<script>
+    var cvs = $("#cvs");
+    var ctx = cvs.getContext("2d");
+    var size = [640, 640];
+    var center = [size[0] / 2, size[1] / 2];
+    var vectorArray = [];
+    var txt_mod = $("#txt_mod");
+    var txt_phs = $("#txt_phs");
+    var colors = ["yellow", "green", "red", "blue", "purple", "black", "orange"];
+
+    function draw() {
+        try {
+
+            ctx.clearRect(0, 0, size[0], size[1]);
+            let onCanvas=RRHelper.Vector.modUniformize(vectorArray, 300);
+
+            for (let i = 0; i < onCanvas.length; i++) {
+                ctx.strokeStyle = colors[i % colors.length];
+                ctx.lineToEx(center[0], center[1], onCanvas[i].mod, onCanvas[i].ang, RRHelper.LineToArgs.Polar | RRHelper.LineToArgs.EndArrow);
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+
+
+    function addLine() {
+        let mod = RRHelper.getFloat("#txt_mod");
+        let phs = RRHelper.getFloat("#txt_phs");
+
+        let v = new RRHelper.Vector(mod, phs);
+        vectorArray.push(v);
+
+        draw();
+
+    }
+
+    function removeLast() {
+        vectorArray.pop();
+        draw();
+    }
+
+
+    //     i -= 0.3;
+    //     // i = Math.abs(i) % 360 > 0 ? i % 360 : i;
+    // }, 16);
+
+    // more customized way
+    /*
+    var endPoint = ctx.lineToEx(center[0], center[1], 230, 90, RRHelper.LineToArgs.Polar);
+    ctx.lineArrow(endPoint.x, endPoint.y, endPoint.k,30,20);
+    ctx.lineArrow(center[0], center[1], p.k * -1 ,30,20);
+    ctx.stroke();
+    */
+
+</script>
+
+</html>

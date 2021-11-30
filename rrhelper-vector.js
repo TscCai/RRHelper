@@ -66,3 +66,26 @@ RRHelper.Vector.minus = function (va, vb) {
     
     return RRHelper.Vector.plus(va, b);
 };
+
+
+
+RRHelper.Vector.modUniformize = function (vectors, maxMod) {
+    if (maxMod == 0) {
+        throw exception("Illegal argument, maxLen can't be 0.");
+    }
+    if (vectors == undefined || vectors == null || vectors.length == 0){
+        return;
+    }
+    let tmp =[], rst = [];
+    for (let i =0;i<vectors.length; i++){
+        tmp[i] = new RRHelper.Vector(vectors[i].mod, vectors[i].ang);
+        rst[i] = new RRHelper.Vector(vectors[i].mod, vectors[i].ang);
+    }
+    tmp.sort((a, b) => b.mod - a.mod);
+    let maxValue = tmp[0].mod;
+    let factor = maxMod / maxValue;
+    for (let i = 0; i < rst.length; i++) {
+        rst[i].mod *= factor;
+    }
+    return rst;
+};
