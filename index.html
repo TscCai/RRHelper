@@ -60,20 +60,40 @@
     var size = [640, 640];
     var center = [size[0] / 2, size[1] / 2];
     var vectorArray = [];
+    var v_sum = new RRHelper.Vector(0, 0);
     var txt_mod = $("#txt_mod");
     var txt_phs = $("#txt_phs");
-    var colors = ["yellow", "green", "red", "blue", "purple", "black", "orange"];
+    var colors = ["green", "red", "blue", "purple", "black", "orange"];
 
     function draw() {
         try {
 
             ctx.clearRect(0, 0, size[0], size[1]);
-            let onCanvas=RRHelper.Vector.modUniformize(vectorArray, 300);
+            ctx.setLineDash([]);
+            ctx.lineWidth = 2.5;
+            let onCanvas = RRHelper.Vector.modUniformize(vectorArray, 300);
+            if (onCanvas != null && onCanvas.length > 0) {
+                let i = 0;
+                for (; i < onCanvas.length - 1; i++) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = colors[i % colors.length];
+                    ctx.lineToEx(center[0], center[1], onCanvas[i].mod, onCanvas[i].ang, RRHelper.LineToArgs.Polar | RRHelper.LineToArgs.EndArrow);
+                    ctx.stroke();
+                }
 
-            for (let i = 0; i < onCanvas.length; i++) {
-                ctx.strokeStyle = colors[i % colors.length];
+               
+                ctx.setLineDash([10, 5]);
+                ctx.beginPath();
                 ctx.lineToEx(center[0], center[1], onCanvas[i].mod, onCanvas[i].ang, RRHelper.LineToArgs.Polar | RRHelper.LineToArgs.EndArrow);
+                ctx.stroke();
+
+                ctx.font = "30px 微软雅黑";
+                ctx.fillText("SUM: "+v_sum.mod +", " + v_sum.ang+"°",0,30);
+                
             }
+
+
+
         } catch (e) {
             alert(e);
         }
@@ -84,16 +104,22 @@
     function addLine() {
         let mod = RRHelper.getFloat("#txt_mod");
         let phs = RRHelper.getFloat("#txt_phs");
+        vectorArray.pop();  // take out the sum vector.
+
 
         let v = new RRHelper.Vector(mod, phs);
         vectorArray.push(v);
-
+        v_sum = RRHelper.Vector.plus(v_sum, v);
+        vectorArray.push(v_sum);
         draw();
 
     }
 
     function removeLast() {
-        vectorArray.pop();
+        vectorArray.pop();  // take out the sum vector.
+        var rm = vectorArray.pop();
+        v_sum = RRHelper.Vector.minus(v_sum, rm);
+        vectorArray.push(v_sum);
         draw();
     }
 

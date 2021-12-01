@@ -38,21 +38,21 @@ RRHelper.Vector.plus = function (va, vb) {
         // r = 0, vector is on complex axis
         // j < 0, arg = -90,
         // j > 0, arg= 90
-        if (j<0) {ang = -90;}
-        else if(j>0){arg = 90;}
+        if (j < 0) { ang = -90; }
+        else if (j > 0) { arg = 90; }
     }
-    
+
     // value decroation
-    if (Math.abs(mod)<1e-8){
+    if (Math.abs(mod) < 1e-8) {
         mod = 0;
     }
-    if (Math.abs(ang)<1e-8){
+    if (Math.abs(ang) < 1e-8) {
         ang = 0;
     }
-    if (Math.abs(Math.floor(ang) - ang)< 1e-8){
+    if (Math.abs(Math.floor(ang) - ang) < 1e-8) {
         ang = Math.floor(ang);
     }
-    if (Math.abs(Math.ceil(ang) - ang)< 1e-8){
+    if (Math.abs(Math.ceil(ang) - ang) < 1e-8) {
         ang = Math.ceil(ang);
     }
     // value decoration finish
@@ -62,8 +62,8 @@ RRHelper.Vector.plus = function (va, vb) {
 
 // 矢量减法，数学模式
 RRHelper.Vector.minus = function (va, vb) {
-    var b = new RRHelper.Vector(vb.mod,vb.ang-180);
-    
+    var b = new RRHelper.Vector(vb.mod, vb.ang - 180);
+
     return RRHelper.Vector.plus(va, b);
 };
 
@@ -73,16 +73,17 @@ RRHelper.Vector.modUniformize = function (vectors, maxMod) {
     if (maxMod == 0) {
         throw exception("Illegal argument, maxLen can't be 0.");
     }
-    if (vectors == undefined || vectors == null || vectors.length == 0){
-        return;
+    if (vectors == undefined || vectors == null || vectors.length == 0) {
+        return [];
     }
-    let tmp =[], rst = [];
-    for (let i =0;i<vectors.length; i++){
-        tmp[i] = new RRHelper.Vector(vectors[i].mod, vectors[i].ang);
+
+    let mods = []; let rst = [];
+    for (let i = 0; i < vectors.length; i++) {
+        mods.push(vectors[i].mod);
         rst[i] = new RRHelper.Vector(vectors[i].mod, vectors[i].ang);
     }
-    tmp.sort((a, b) => b.mod - a.mod);
-    let maxValue = tmp[0].mod;
+    mods.sort((a, b) => b - a);
+    let maxValue = mods[0];
     let factor = maxMod / maxValue;
     for (let i = 0; i < rst.length; i++) {
         rst[i].mod *= factor;

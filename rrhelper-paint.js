@@ -40,7 +40,7 @@ CanvasRenderingContext2D.prototype.lineToEx = function (sX, sY, a, b, args) {
     }
 
     args = args == undefined ? RRHelper.LineToArgs.Rectangular : args;
-    this.beginPath();
+    
 
     this.moveTo(sX, sY);
 
@@ -68,7 +68,7 @@ CanvasRenderingContext2D.prototype.lineToEx = function (sX, sY, a, b, args) {
     if (args & RRHelper.LineToArgs.StartArrow) {
         this.lineArrow(sX, sY, direct + 180);
     }
-    this.stroke();
+    
     return { x: eX, y: eY, direct: direct };
 };
 
@@ -106,6 +106,6 @@ CanvasRenderingContext2D.prototype.lineArrow = function (sX, sY, direct, len, an
     eY = (tmpY - sY) * Math.cos(rAng) + (tmpX - sX) * Math.sin(rAng) + sY;
     this.moveTo(sX, sY);
     this.lineTo(eX, eY);
-    this.stroke();
+   
 };
 
